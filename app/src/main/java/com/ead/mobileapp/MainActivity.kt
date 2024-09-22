@@ -16,8 +16,9 @@ class MainActivity : AppCompatActivity() {
         val isAuthenticated = sharedPref.getBoolean("isAuthenticated", false)
 
         if (isAuthenticated) {
-            setContentView(R.layout.activity_home)
-            enableEdgeToEdge()
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
         } else {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
