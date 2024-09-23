@@ -1,9 +1,13 @@
 package com.ead.mobileapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -11,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ead.mobileapp.adapters.ProductAdapter
 import com.ead.mobileapp.models.Product
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
 
@@ -24,11 +29,11 @@ class HomeActivity : AppCompatActivity() {
 
         // Sample product list with categories
         productList = listOf(
-            Product("Product 1", "$10", "Electronics"),
-            Product("Product 2", "$20", "Clothing"),
-            Product("Product 3", "$30", "Home"),
-            Product("Product 4", "$40", "Electronics"),
-            Product("Product 5", "$50", "Clothing")
+            Product("Product 1", "$10", description = "Description","Electronics"),
+            Product("Product 2", "$20", description = "Description","Clothing"),
+            Product("Product 3", "$30", description = "Description","Home"),
+            Product("Product 4", "$40", description = "Description","Electronics"),
+            Product("Product 5", "$50", description = "Description","Clothing")
         )
 
         // Initialize filteredList
@@ -65,9 +70,25 @@ class HomeActivity : AppCompatActivity() {
         categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 filterProducts(searchView.query.toString(), categories[position])
+                val selectedProduct = productList[position]
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
+        findViewById<ImageButton>(R.id.cartButton).setOnClickListener{
+            val intent = Intent(this, CartActivity::class.java)
+            startActivity(intent)
+        }
+
+        findViewById<ImageButton>(R.id.profileButton).setOnClickListener{
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        findViewById<ImageButton>(R.id.ordersButton).setOnClickListener{
+            val intent = Intent(this, OrdersActivity::class.java)
+            startActivity(intent)
         }
     }
 
