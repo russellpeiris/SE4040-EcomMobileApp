@@ -1,5 +1,6 @@
 package com.ead.mobileapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ead.mobileapp.adapters.ProductAdapter
 import com.ead.mobileapp.models.Product
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
 
@@ -69,6 +71,30 @@ class HomeActivity : AppCompatActivity() {
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
+
+        //Bottom nav
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.navigationLayout)
+        bottomNavigationView.setOnItemSelectedListener() { item ->
+            when (item.itemId) {
+                R.id.profile -> {
+                    val intent = Intent(this, ProfileActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.cart -> {
+                    val intent = Intent(this, CartActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.orders -> {
+                    val intent = Intent(this, OrdersActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                else -> false
+            }
+        }
+
     }
 
     // Filter products based on search query and selected category
