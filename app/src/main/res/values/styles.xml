@@ -1,0 +1,6 @@
+<resources>
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="fontFamily">@font/noto_sans</item>
+        <!-- Add any other style attributes here -->
+    </style>
+</resources>

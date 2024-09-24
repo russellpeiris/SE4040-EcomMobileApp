@@ -43,7 +43,10 @@ class HomeActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = ProductAdapter(filteredList) { product ->
-            // Handle item click, e.g., show product details
+
+            val intent = Intent(this, ProductActivity::class.java)
+            intent.putExtra("selectedProduct", product)
+            startActivity(intent)
         }
         recyclerView.adapter = adapter
         val categorySpinner = findViewById<Spinner>(R.id.categorySpinner)
@@ -69,12 +72,15 @@ class HomeActivity : AppCompatActivity() {
 
         categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                filterProducts(searchView.query.toString(), categories[position])
-                val selectedProduct = productList[position]
+                filterProducts(searchView.query.toString(), selectedCategory = categories[position])
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                filterProducts(searchView.query.toString(), selectedCategory = "All")
+            }
         }
+
+
 
         findViewById<ImageButton>(R.id.cartButton).setOnClickListener{
             val intent = Intent(this, CartActivity::class.java)

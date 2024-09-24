@@ -1,29 +1,30 @@
 package com.ead.mobileapp
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.ead.mobileapp.models.Product
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class ProductActivity : AppCompatActivity() {
+class ProductActivity : BackActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_product)
 
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        enableUpNavigation(toolbar)
         // Extract product data passed via the intent
         val selectedProduct = intent.getSerializableExtra("selectedProduct") as? Product
 
         // Update the UI with product details
         if (selectedProduct != null) {
-            findViewById<TextView>(R.id.productTitle).text = selectedProduct.name
-            findViewById<TextView>(R.id.productPrice).text = selectedProduct.price
-            findViewById<TextView>(R.id.productDescription).text = selectedProduct.description
+            findViewById<TextView>(R.id.product_name).text = selectedProduct.name
+            findViewById<TextView>(R.id.product_price).text = selectedProduct.price
+            findViewById<TextView>(R.id.product_description).text = selectedProduct.description
         }
 
         // This sets up the UI elements to adjust for system window insets like status bar
