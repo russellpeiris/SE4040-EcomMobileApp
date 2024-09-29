@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F4F4F4"
     tools:context=".HomeActivity">
 
     <!-- Search Bar -->
@@ -10,74 +11,80 @@
         android:id="@+id/searchView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/rounded_edittext"
+        android:elevation="1dp"
+        android:padding="8dp"
         android:queryHint="Search products"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="8dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Category Dropdown (Spinner) -->
+
+    <!-- RecyclerView for displaying products -->
     <Spinner
         android:id="@+id/categorySpinner"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/searchView"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="8dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchView" />
 
-    <!-- RecyclerView for displaying products -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/categorySpinner"
         app:layout_constraintBottom_toTopOf="@id/navigationLayout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/categorySpinner"
+        tools:listitem="@layout/item_product" />
 
     <!-- Navigation Buttons (e.g., Cart, Profile) -->
     <LinearLayout
         android:id="@+id/navigationLayout"
         android:layout_width="0dp"
         android:layout_height="64dp"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:padding="0dp"
         android:background="@color/white"
+        android:elevation="1dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
             android:id="@+id/ordersButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:backgroundTint="@android:color/white"
-            android:layout_weight="1"
             android:layout_marginRight="4dp"
-            android:src="@drawable/ic_orders"
-            android:contentDescription="@string/orders" />
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/white"
+            android:contentDescription="@string/orders"
+            android:src="@drawable/ic_orders" />
 
         <ImageButton
             android:id="@+id/cartButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginRight="4dp"
-            android:backgroundTint="@android:color/white"
             android:layout_weight="1"
-            android:src="@drawable/ic_cart"
-            android:contentDescription="@string/cart" />
+            android:backgroundTint="@android:color/white"
+            android:contentDescription="@string/cart"
+            android:src="@drawable/ic_cart" />
 
         <ImageButton
             android:id="@+id/profileButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:backgroundTint="@android:color/white"
             android:layout_weight="1"
-            android:src="@drawable/ic_profile"
-            android:contentDescription="@string/profile" />
-
+            android:backgroundTint="@android:color/white"
+            android:contentDescription="@string/profile"
+            android:src="@drawable/ic_profile" />
 
 
     </LinearLayout>

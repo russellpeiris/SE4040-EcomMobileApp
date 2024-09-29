@@ -1,6 +1,10 @@
 <resources>
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="fontFamily">@font/noto_sans</item>
-        <!-- Add any other style attributes here -->
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorSecondary">@color/white</item>
+        <item name="colorControlActivated">@color/black</item> <!-- Affects cursor color -->
+
+
     </style>
 </resources>
