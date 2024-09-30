@@ -52,4 +52,12 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="checkout">Checkout</string>
+    <string name="appName">EcommerceMobileApp</string>
+    <string name="splash_screen">Splash Screen</string>
+    <string name="product_name">Product Name</string>
+    <string name="product_price">Product Price</string>
+    <string name="product_description">Product Description</string>
+    <string name="buy_now">Buy Now</string>
+    <string name="custom_edit_text">Custom Edit Text</string>
 </resources>

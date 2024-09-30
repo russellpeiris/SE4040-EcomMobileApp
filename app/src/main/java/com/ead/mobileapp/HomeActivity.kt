@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Button
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -15,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ead.mobileapp.adapters.ProductAdapter
 import com.ead.mobileapp.models.Product
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
 
@@ -93,7 +90,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         findViewById<ImageButton>(R.id.ordersButton).setOnClickListener{
-            val intent = Intent(this, OrdersActivity::class.java)
+            val intent = Intent(this, OrderActivity::class.java)
             startActivity(intent)
         }
     }

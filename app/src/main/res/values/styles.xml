@@ -4,7 +4,5 @@
         <item name="colorPrimary">@color/black</item>
         <item name="colorSecondary">@color/white</item>
         <item name="colorControlActivated">@color/black</item> <!-- Affects cursor color -->
-
-
     </style>
 </resources>

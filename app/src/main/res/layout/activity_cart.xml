@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_arrow_back"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:title="Cart" />
+        android:title="@string/cart" />
 
     <!-- RecyclerView for Cart Items -->
     <androidx.recyclerview.widget.RecyclerView
@@ -46,7 +46,7 @@
         <!-- Total Price -->
         <TextView
             android:id="@+id/totalPrice"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Total: $0.00"
             android:textSize="18sp"
@@ -59,7 +59,7 @@
             android:id="@+id/checkoutButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Checkout"
+            android:text="@string/checkout"
             android:backgroundTint="@android:color/holo_green_dark"
             android:textColor="@android:color/white" />
     </LinearLayout>
