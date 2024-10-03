@@ -7,6 +7,10 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.ead.mobileapp.api.RetrofitClient
+import com.ead.mobileapp.dto.RegisterRequest
+import kotlinx.coroutines.launch
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -39,10 +43,7 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             // You can proceed with registration logic here (e.g., saving to DB, API call)
-            Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show()
-
-            // Optionally, navigate back to login screen
-            finish()  // Ends this activity and returns to previous screen (e.g., login)
+            register(name, email, password, confirmPassword)
         }
 
         val loginLink = findViewById<TextView>(R.id.login_link)
@@ -51,5 +52,31 @@ class RegisterActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+    }
+
+    //register
+    private fun register(
+        name: String,
+        email: String,
+        password: String,
+        confirmPassword: String
+    ){
+        val registerRequest = RegisterRequest(name, email, password, confirmPassword)
+
+        val authService = RetrofitClient.authService
+
+        lifecycleScope.launch {
+            val response = authService.register(registerRequest)
+
+            if (response.isSuccessful) {
+                val registerResponse = response.body()
+                Toast.makeText(this@RegisterActivity, registerResponse?.message, Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this@RegisterActivity, "Registration failed", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

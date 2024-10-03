@@ -11,12 +11,18 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
+import com.ead.mobileapp.api.AuthService
+import com.ead.mobileapp.api.RetrofitClient
+import com.ead.mobileapp.dto.LoginRequest
+import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_login)
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -56,20 +62,56 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun performLogin(email: String, password: String) {
-        if (email == "test@test.com" && password == "test123") {
-            Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
+//        if (email == "test@test.com" && password == "test123") {
+//            Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
+//
+//            val sharedPref = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+//            val editor = sharedPref.edit()
+//            editor.putBoolean("isAuthenticated", true)
+//            editor.apply()
+//
+//            val intent = Intent(this, HomeActivity::class.java)
+//            startActivity(intent)
+//            finish()
+//
+//        } else {
+//            Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show()
+//        }
 
-            val sharedPref = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
-            val editor = sharedPref.edit()
-            editor.putBoolean("isAuthenticated", true)
-            editor.apply()
+        // Create an instance of the login request
+        val loginRequest = LoginRequest(email, password)
 
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
-            finish()
+        // Launch a coroutine to perform the network operation
+        val authService = RetrofitClient.authService
 
-        } else {
-            Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show()
+        lifecycleScope.launch {
+            try {
+                // Call the login method from AuthService
+                val response = authService.login(loginRequest)
+                // Use await() if using Kotlin Coroutines
+                if (response.isSuccessful) {
+                    // Handle successful response
+                    val loginResponse = response.body()
+                    if (loginResponse != null) {
+                        Toast.makeText(this@LoginActivity, "Login successful", Toast.LENGTH_SHORT).show()
+
+                        // Store authentication status in SharedPreferences
+                        val sharedPref = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+                        sharedPref.edit().putBoolean("isAuthenticated", true).apply()
+
+                        // Start HomeActivity
+                        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                } else {
+                    // Handle login failure
+                    Toast.makeText(this@LoginActivity, "Invalid email or password", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                // Handle exceptions (e.g., network errors)
+                Toast.makeText(this@LoginActivity, "Login failed: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
