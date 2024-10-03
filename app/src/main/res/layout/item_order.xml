@@ -74,13 +74,13 @@
 
         <!-- Product Quantity or Summary (Optional) -->
         <TextView
-            android:id="@+id/orderItemsSummary"
+            android:id="@+id/orderStatus"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/noto_sans"
-            android:text="Items: 2x Product A, 1x Product B"
+            android:text="Status: In Progress"
             android:textColor="@android:color/darker_gray"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"

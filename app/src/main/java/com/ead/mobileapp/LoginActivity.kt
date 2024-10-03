@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -45,6 +46,13 @@ class LoginActivity : AppCompatActivity() {
 
             performLogin(email, password)
         }
+
+        val registerLink = findViewById<TextView>(R.id.register_link)
+        registerLink.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun performLogin(email: String, password: String) {

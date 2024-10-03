@@ -60,4 +60,8 @@
     <string name="product_description">Product Description</string>
     <string name="buy_now">Buy Now</string>
     <string name="custom_edit_text">Custom Edit Text</string>
+    <string name="register">register</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="name">Name</string>
+    <string name="register_title">Register</string>
 </resources>

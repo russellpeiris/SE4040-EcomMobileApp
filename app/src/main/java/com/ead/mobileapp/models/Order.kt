@@ -7,5 +7,7 @@ data class Order(
     val orderNumber: String,
     val orderDate: String,
     val orderTotal: Double,
-    val itemsSummary: String
+    val orderStatus: String,
+    val trackingNumber: String?,
+    val total: Double,
 ) : Serializable
