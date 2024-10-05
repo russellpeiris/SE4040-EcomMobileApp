@@ -1,3 +1,9 @@
 package com.ead.mobileapp.dto
 
-class LoginRequest(private val email: String, private val password: String)
+import com.google.gson.annotations.SerializedName
+
+
+data class LoginRequest(
+    var email: String,
+    var password: String
+)

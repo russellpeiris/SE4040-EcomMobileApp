@@ -1,5 +1,7 @@
 package com.ead.mobileapp.dto
 
-class RegisterResponse {
-    val user: Any? = null
-}
+import com.ead.mobileapp.models.User
+
+data class RegisterResponse(
+    val user: User
+)

@@ -1,5 +1,10 @@
 package com.ead.mobileapp.dto
 
-class LoginResponse {
-    val token: String? = null
-}
+import com.ead.mobileapp.models.User
+import com.google.gson.annotations.SerializedName
+import java.io.Serializable
+
+
+data class LoginResponse (
+    val email : String,
+) : Serializable

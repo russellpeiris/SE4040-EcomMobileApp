@@ -1,23 +1,40 @@
 package com.ead.mobileapp.api
 
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
-    private const val BASE_URL = "https://dummyjson.com/" // Replace with your API base URL
+    private const val BASE_URL = "http://10.0.2.2:3000/"
 
-    private val retrofit: Retrofit by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create()) // For JSON to Kotlin conversion
-            .build()
-    }
+    private var mHttpLoggingInterceptor = HttpLoggingInterceptor()
+        .setLevel(HttpLoggingInterceptor.Level.BODY)
 
-//    val apiService: ApiService by lazy {
-//        retrofit.create(ApiService::class.java)
-//    }
+    private var mOkHttpClient = OkHttpClient
+        .Builder()
+        .addInterceptor(mHttpLoggingInterceptor)
+        .build()
 
-    val authService: AuthService by lazy {
-        retrofit.create(AuthService::class.java)
-    }
+    private var mRetrofit: Retrofit? = null
+
+
+    private val client: Retrofit?
+        get() {
+            if(mRetrofit == null){
+                mRetrofit = Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .client(mOkHttpClient)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+            }
+            return mRetrofit
+        }
+
+    val authService: AuthService
+        get() {
+            return client!!.create(AuthService::class.java)
+        }
 }
+

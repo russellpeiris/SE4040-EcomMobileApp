@@ -24,14 +24,12 @@ class RegisterActivity : AppCompatActivity() {
         val confirmPasswordField = findViewById<EditText>(R.id.confirm_password)
         val registerButton = findViewById<Button>(R.id.register)
 
-        // Handle the registration logic when the button is clicked
         registerButton.setOnClickListener {
             val name = nameField.text.toString().trim()
             val email = emailField.text.toString().trim()
             val password = passwordField.text.toString().trim()
             val confirmPassword = confirmPasswordField.text.toString().trim()
 
-            // Simple validation checks
             if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -42,8 +40,7 @@ class RegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // You can proceed with registration logic here (e.g., saving to DB, API call)
-            register(name, email, password, confirmPassword)
+            register(name, email, password)
         }
 
         val loginLink = findViewById<TextView>(R.id.login_link)
@@ -54,29 +51,28 @@ class RegisterActivity : AppCompatActivity() {
 
     }
 
-    //register
     private fun register(
         name: String,
         email: String,
         password: String,
-        confirmPassword: String
     ){
-        val registerRequest = RegisterRequest(name, email, password, confirmPassword)
+        val registerRequest = RegisterRequest(name, email, password)
 
         val authService = RetrofitClient.authService
 
-        lifecycleScope.launch {
-            val response = authService.register(registerRequest)
-
-            if (response.isSuccessful) {
-                val registerResponse = response.body()
-                Toast.makeText(this@RegisterActivity, registerResponse?.message, Toast.LENGTH_SHORT).show()
-
-                val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-                startActivity(intent)
-            } else {
-                Toast.makeText(this@RegisterActivity, "Registration failed", Toast.LENGTH_SHORT).show()
-            }
-        }
+//        lifecycleScope.launch {
+//            val response = authService.register(registerRequest)
+//
+//            if (response.isSuccessful) {
+//                Toast.makeText(this@RegisterActivity, "Success: Await Account Activation", Toast.LENGTH_SHORT).show()
+//                println(response.body())
+//                val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+//                startActivity(intent)
+//            } else {
+//                Toast.makeText(this@RegisterActivity, "Registration failed", Toast.LENGTH_SHORT).show()
+//            }
+//            println(response)
+//
+//        }
     }
 }
