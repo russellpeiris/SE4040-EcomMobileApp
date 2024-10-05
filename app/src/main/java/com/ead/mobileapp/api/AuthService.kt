@@ -1,10 +1,9 @@
 package com.ead.mobileapp.api
 
-import com.ead.mobileapp.dto.LoginRequest
-import com.ead.mobileapp.dto.LoginResponse
-import com.ead.mobileapp.dto.RegisterRequest
-import com.ead.mobileapp.dto.RegisterResponse
-import com.ead.mobileapp.models.User
+import com.ead.mobileapp.dto.auth.LoginRequest
+import com.ead.mobileapp.dto.auth.LoginResponse
+import com.ead.mobileapp.dto.auth.RegisterRequest
+import com.ead.mobileapp.dto.auth.RegisterResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST

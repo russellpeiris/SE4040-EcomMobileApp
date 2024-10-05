@@ -1,4 +1,4 @@
-package com.ead.mobileapp.dto
+package com.ead.mobileapp.dto.auth
 
 class RegisterRequest(
     private val name: String,

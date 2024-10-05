@@ -10,7 +10,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.ead.mobileapp.api.RetrofitClient
 import com.ead.mobileapp.models.Product
+import com.ead.mobileapp.repositories.ProductRepository
 
 class ProductActivity : BackActivity() {
 
@@ -18,6 +20,7 @@ class ProductActivity : BackActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_product)
+
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         enableUpNavigation(toolbar)

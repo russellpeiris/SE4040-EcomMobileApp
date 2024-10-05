@@ -12,7 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.ead.mobileapp.api.RetrofitClient
-import com.ead.mobileapp.dto.LoginRequest
+import com.ead.mobileapp.dto.auth.LoginRequest
 import com.ead.mobileapp.utils.Utils
 import kotlinx.coroutines.launch
 

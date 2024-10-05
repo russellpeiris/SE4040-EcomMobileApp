@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.ead.mobileapp.api.RetrofitClient
-import com.ead.mobileapp.dto.RegisterRequest
+import com.ead.mobileapp.dto.auth.RegisterRequest
 import kotlinx.coroutines.launch
 
 class RegisterActivity : AppCompatActivity() {

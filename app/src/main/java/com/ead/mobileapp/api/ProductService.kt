@@ -1,5 +1,7 @@
 package com.ead.mobileapp.api
 
+import com.ead.mobileapp.dto.auth.LoginResponse
+import com.ead.mobileapp.dto.product.ProductResponse
 import com.ead.mobileapp.models.CartItem
 import com.ead.mobileapp.models.Product
 import retrofit2.Response
@@ -11,8 +13,8 @@ import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface ProductService {
-    @GET("api/products")
-    suspend fun getProducts(): Response<List<Product>>
+    @GET("/products")
+    suspend fun getProducts():Response<ProductResponse>
 
     @GET("api/products/{id}")
     suspend fun getProductById(@Path("id") id: String): Response<Product>
@@ -26,15 +28,15 @@ interface ProductService {
     @DELETE("api/products/{id}")
     suspend fun deleteProduct(@Path("id") id: String): Response<Void>
 
-    @POST("api/feedback")
-    fun submitFeedback(@Body feedback: VendorFeedbackRequest): Response<Void>
+//    @POST("api/feedback")
+//    fun submitFeedback(@Body feedback: VendorFeedbackRequest): Response<Void>
 
     @POST("api/cart")
     fun addToCart(@Body addToCartRequest: CartItem): Response<Void>
 }
 
-data class VendorFeedbackRequest(
-    val productId: String,
-    val rating: Float,
-    val comment: String
-)
+//data class VendorFeedbackRequest(
+//    val productId: String,
+//    val rating: Float,
+//    val comment: String
+//)
