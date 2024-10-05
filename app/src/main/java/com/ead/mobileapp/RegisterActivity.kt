@@ -57,22 +57,24 @@ class RegisterActivity : AppCompatActivity() {
         password: String,
     ){
         val registerRequest = RegisterRequest(name, email, password)
-
         val authService = RetrofitClient.authService
 
-//        lifecycleScope.launch {
-//            val response = authService.register(registerRequest)
-//
-//            if (response.isSuccessful) {
-//                Toast.makeText(this@RegisterActivity, "Success: Await Account Activation", Toast.LENGTH_SHORT).show()
-//                println(response.body())
-//                val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-//                startActivity(intent)
-//            } else {
-//                Toast.makeText(this@RegisterActivity, "Registration failed", Toast.LENGTH_SHORT).show()
-//            }
-//            println(response)
-//
-//        }
+        lifecycleScope.launch {
+
+            try {
+                val registerResponse = authService.register(registerRequest)
+
+                if (registerResponse.isSuccessful) {
+                    Toast.makeText(this@RegisterActivity, "Success: Await Account Activation", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this@RegisterActivity, "Registration failed", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(this@RegisterActivity, "An error occurred", Toast.LENGTH_SHORT).show()
+
+            }
+        }
     }
 }
