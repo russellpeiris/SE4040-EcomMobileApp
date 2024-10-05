@@ -74,6 +74,8 @@ class LoginActivity : AppCompatActivity() {
                     val editor = sharedPref.edit()
                     editor.putBoolean("isAuthenticated", true)
 //                  editor.putString("token", response.data?.token) // Uncomment if token exists in response
+                    editor.putString("currentUser", email)
+
                     editor.apply()
                     val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                     startActivity(intent)

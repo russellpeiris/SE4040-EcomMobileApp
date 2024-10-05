@@ -11,10 +11,4 @@ interface OrderService {
 
     @GET("api/orders/{id}")
     suspend fun getOrderById(@Path("id") id: String): Response<Order>
-
-    @PUT("api/orders/{id}")
-    suspend fun updateOrder(@Path("id") id: String, @Body orderUpdate: OrderUpdateRequest): Response<Order>
-
-    @DELETE("api/orders/{id}")
-    suspend fun cancelOrder(@Path("id") id: String): Response<Void>
 }

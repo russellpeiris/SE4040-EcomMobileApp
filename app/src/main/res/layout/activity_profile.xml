@@ -64,15 +64,6 @@
             android:layout_marginTop="24dp">
 
             <!-- Editable Username -->
-            <TextView
-                android:id="@+id/username"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Username"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
-                android:fontFamily="@font/noto_sans"
-                android:layout_marginBottom="8dp" />
 
             <!-- Email (Non-Editable) -->
             <TextView
@@ -142,6 +133,17 @@
             android:fontFamily="@font/noto_sans_medium"
             android:padding="18dp"
             android:text="Logout"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/deactivate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/rounded_button"
+            android:fontFamily="@font/noto_sans_medium"
+            android:padding="18dp"
+            android:text="Deactivate"
             android:textColor="@android:color/white" />
     </LinearLayout>
 

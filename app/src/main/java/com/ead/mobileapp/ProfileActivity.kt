@@ -31,13 +31,13 @@ class ProfileActivity : BackActivity() {
         enableUpNavigation(toolbar)
 
         // Initialize UI Elements
-        val usernameTextView = findViewById<TextView>(R.id.username)
         val emailTextView = findViewById<TextView>(R.id.email)
         val nameEditText = findViewById<EditText>(R.id.name)
         val phoneEditText = findViewById<EditText>(R.id.phone)
         val addressEditText = findViewById<EditText>(R.id.address)
         val updateButton = findViewById<Button>(R.id.updateButton)
         val logoutButton = findViewById<Button>(R.id.logout)
+        val deactivateButton = findViewById<Button>(R.id.deactivate)
 
         // Retrieve saved data from SharedPreferences
         val sharedPref = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
@@ -48,7 +48,6 @@ class ProfileActivity : BackActivity() {
         val savedEmail = sharedPref.getString("email", "test@test.com")
 
         // Set initial values
-        usernameTextView.text = savedUsername
         nameEditText.setText(savedName)
         phoneEditText.setText(savedPhone)
         addressEditText.setText(savedAddress)

@@ -1,42 +1,30 @@
 package com.ead.mobileapp.api
 
-import com.ead.mobileapp.dto.auth.LoginResponse
+import com.ead.mobileapp.dto.product.FeedbackRequest
+import com.ead.mobileapp.dto.cart.AddToCartRequest
+import com.ead.mobileapp.dto.cart.AddToCartResponse
+import com.ead.mobileapp.dto.cart.CartResponse
 import com.ead.mobileapp.dto.product.ProductResponse
-import com.ead.mobileapp.models.CartItem
-import com.ead.mobileapp.models.Product
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
-import retrofit2.http.PUT
-import retrofit2.http.Path
+import retrofit2.http.Query
+
 
 interface ProductService {
     @GET("/products")
     suspend fun getProducts():Response<ProductResponse>
 
-    @GET("api/products/{id}")
-    suspend fun getProductById(@Path("id") id: String): Response<Product>
+    @POST("/cart")
+    suspend fun addToCart(@Body body: AddToCartRequest): Response<AddToCartResponse>
 
-    @POST("api/products")
-    suspend fun createProduct(@Body product: Product): Response<Product>
+    @GET("/cart")
+    suspend fun getCartItems(@Query("email") email: String): Response<CartResponse>
 
-    @PUT("api/products/{id}")
-    suspend fun updateProduct(@Path("id") id: String, @Body product: Product): Response<Product>
+    @POST("/product-feedback")
+    suspend fun addProductFeedback(@Body feedbackRequest: FeedbackRequest): Response<Void>
 
-    @DELETE("api/products/{id}")
-    suspend fun deleteProduct(@Path("id") id: String): Response<Void>
-
-//    @POST("api/feedback")
-//    fun submitFeedback(@Body feedback: VendorFeedbackRequest): Response<Void>
-
-    @POST("api/cart")
-    fun addToCart(@Body addToCartRequest: CartItem): Response<Void>
+    @GET("/product-feedback")
+    suspend fun getProductFeedback(@Query("productId") productId: String): Response<ProductResponse>
 }
-
-//data class VendorFeedbackRequest(
-//    val productId: String,
-//    val rating: Float,
-//    val comment: String
-//)
