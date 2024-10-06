@@ -14,7 +14,6 @@ class CartRepository(private val cartService: CartService) {
     }
 
     suspend fun getCartItems(email: String): CartResponse? {
-        println("email: $email")
         val response = cartService.getCartItems(email)
         return if (response.isSuccessful) {
             response.body()?.data

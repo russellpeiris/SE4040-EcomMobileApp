@@ -1,6 +1,5 @@
 package com.ead.mobileapp.models
 
-import android.net.Uri
 import java.io.Serializable
 
 
