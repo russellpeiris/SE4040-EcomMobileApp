@@ -22,7 +22,6 @@ object RetrofitClient {
 
     private var mRetrofit: Retrofit? = null
 
-
     private val client: Retrofit?
         get() {
             if(mRetrofit == null){

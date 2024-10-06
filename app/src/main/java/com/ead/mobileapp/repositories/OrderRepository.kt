@@ -1,5 +1,4 @@
 package com.ead.mobileapp.repositories
-
 import com.ead.mobileapp.api.interfaces.OrderService
 import com.ead.mobileapp.models.Order
 import retrofit2.Response

@@ -85,8 +85,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun fetchProducts() {
         lifecycleScope.launch {
-            val productService = RetrofitClient.productService
-            val productRepository = ProductRepository(productService)
+            val productRepository = ProductRepository(RetrofitClient.productService)
 
             try {
                 productList = productRepository.getProducts() ?: emptyList()
