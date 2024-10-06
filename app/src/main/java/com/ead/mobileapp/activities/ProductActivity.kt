@@ -15,6 +15,7 @@ import com.ead.mobileapp.R
 import com.ead.mobileapp.api.RetrofitClient
 import com.ead.mobileapp.models.FeedBack
 import com.ead.mobileapp.models.Product
+import com.ead.mobileapp.repositories.CartRepository
 import com.ead.mobileapp.repositories.ProductRepository
 import kotlinx.coroutines.launch
 
@@ -82,11 +83,11 @@ class ProductActivity : BackActivity() {
         val email =
             getSharedPreferences("MyAppPrefs", MODE_PRIVATE).getString("currentUserEmail", "") ?: ""
 
-        val productRepository = ProductRepository(RetrofitClient.productService)
+       val cartRepository = CartRepository(RetrofitClient.cartService)
 
         lifecycleScope.launch {
             try {
-                val response = productRepository.addToCart(email, product)
+                val response = cartRepository.addToCart(email, product)
                 if (response.isSuccessful) {
                     Toast.makeText(
                         this@ProductActivity,

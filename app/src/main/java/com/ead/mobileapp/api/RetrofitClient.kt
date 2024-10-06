@@ -1,8 +1,11 @@
 package com.ead.mobileapp.api
 
+import com.ead.mobileapp.api.interfaces.AuthService
+import com.ead.mobileapp.api.interfaces.CartService
+import com.ead.mobileapp.api.interfaces.OrderService
+import com.ead.mobileapp.api.interfaces.ProductService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -40,6 +43,16 @@ object RetrofitClient {
     val productService: ProductService
         get() {
             return client!!.create(ProductService::class.java)
+        }
+
+    val orderService: OrderService
+        get() {
+            return client!!.create(OrderService::class.java)
+        }
+
+    val cartService: CartService
+        get() {
+            return client!!.create(CartService::class.java)
         }
 }
 

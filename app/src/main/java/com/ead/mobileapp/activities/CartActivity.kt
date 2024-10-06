@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ead.mobileapp.R
 import com.ead.mobileapp.adapters.CartAdapter
 import com.ead.mobileapp.api.RetrofitClient
+import com.ead.mobileapp.repositories.CartRepository
+import com.ead.mobileapp.repositories.OrderRepository
 import com.ead.mobileapp.repositories.ProductRepository
 import kotlinx.coroutines.launch
 
@@ -44,10 +46,8 @@ class CartActivity : BackActivity() {
 
         lifecycleScope.launch {
             try {
-                val productService = RetrofitClient.productService
-                val productRepository = ProductRepository(productService)
-
-                val cartItems = productRepository.getCartItems(email)
+                val cartRepository = CartRepository(RetrofitClient.cartService)
+                val cartItems = cartRepository.getCartItems(email)
 
                 if (cartItems != null && cartItems.products.isNotEmpty()) {
 
@@ -67,7 +67,6 @@ class CartActivity : BackActivity() {
                         .show()
                 }
             } catch (e: Exception) {
-                println("cartItems**********************************: ${e.message}")
                 Toast.makeText(this@CartActivity, "An error occurred: ${e.message}", Toast.LENGTH_SHORT)
                     .show()
             }
@@ -79,10 +78,8 @@ class CartActivity : BackActivity() {
 
         lifecycleScope.launch {
             try {
-                val productService = RetrofitClient.productService
-                val productRepository = ProductRepository(productService)
-
-                val response = productRepository.placeOrder(email)
+                val orderRepository = OrderRepository(RetrofitClient.orderService)
+                val response = orderRepository.placeOrder(email)
 
                 if (response.isSuccessful) {
                     Toast.makeText(this@CartActivity, "Order placed successfully", Toast.LENGTH_SHORT)

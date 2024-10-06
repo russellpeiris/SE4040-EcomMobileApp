@@ -1,5 +1,6 @@
-package com.ead.mobileapp.api
+package com.ead.mobileapp.api.interfaces
 
+import com.ead.mobileapp.api.ApiResponse
 import com.ead.mobileapp.dto.auth.LoginRequest
 import com.ead.mobileapp.dto.auth.LoginResponse
 import com.ead.mobileapp.dto.auth.RegisterRequest

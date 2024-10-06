@@ -14,6 +14,7 @@ import com.ead.mobileapp.R
 import com.ead.mobileapp.adapters.OrderAdapter
 import com.ead.mobileapp.api.RetrofitClient
 import com.ead.mobileapp.models.Order
+import com.ead.mobileapp.repositories.OrderRepository
 import com.ead.mobileapp.repositories.ProductRepository
 import kotlinx.coroutines.launch
 
@@ -56,13 +57,12 @@ class OrdersActivity : BackActivity() {
 
     private fun getOrders() {
 
-        val productRepository = ProductRepository(RetrofitClient.productService)
+        val orderRepository = OrderRepository(RetrofitClient.orderService)
         val email = getSharedPreferences("MyAppPrefs", MODE_PRIVATE).getString("currentUserEmail", "") ?: ""
-
 
         lifecycleScope.launch {
             try {
-                val orders = productRepository.getOrders(email)
+                val orders = orderRepository.getOrders(email)
                 if (orders != null) {
                     // adapter view
                     val recyclerView = findViewById<RecyclerView>(R.id.orderRecyclerView)

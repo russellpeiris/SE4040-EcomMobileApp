@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.ead.mobileapp.R
 import com.ead.mobileapp.api.RetrofitClient
 import com.ead.mobileapp.models.Order
+import com.ead.mobileapp.repositories.OrderRepository
 import com.ead.mobileapp.repositories.ProductRepository
 import kotlinx.coroutines.launch
 
@@ -52,8 +53,8 @@ class OrderDetailsActivity : AppCompatActivity() {
     private fun cancelOrder(orderId: String) {
         lifecycleScope.launch {
             try {
-                val productRepository = ProductRepository(RetrofitClient.productService)
-                val response = productRepository.requestCancelOrder(orderId)
+                val orderRepository = OrderRepository(RetrofitClient.orderService)
+                val response = orderRepository.requestCancelOrder(orderId)
                 if (response.isSuccessful) {
                     Toast.makeText(this@OrderDetailsActivity, "Order cancellation request sent", Toast.LENGTH_SHORT).show()
                 } else {
