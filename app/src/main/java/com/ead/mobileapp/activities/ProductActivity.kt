@@ -1,4 +1,4 @@
-package com.ead.mobileapp
+package com.ead.mobileapp.activities
 
 import android.os.Bundle
 import android.widget.Button
@@ -11,9 +11,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import com.ead.mobileapp.R
 import com.ead.mobileapp.api.RetrofitClient
-import com.ead.mobileapp.dto.cart.AddToCartRequest
-import com.ead.mobileapp.dto.product.FeedbackRequest
+import com.ead.mobileapp.models.FeedBack
 import com.ead.mobileapp.models.Product
 import com.ead.mobileapp.repositories.ProductRepository
 import kotlinx.coroutines.launch
@@ -51,9 +51,13 @@ class ProductActivity : BackActivity() {
                 return@setOnClickListener
             }
 
-            addProductFeedback(comment, rating)  // Call the feedback function here
+            addProductFeedback(
+                getSharedPreferences("MyAppPrefs", MODE_PRIVATE).getString("currentUserEmail", "") ?: "",
+                selectedProduct?._id ?: "",
+                comment,
+                rating
+            )
 
-            // Clear the rating and comment fields after submission
             ratingBar.rating = 0f
             commentEditText.text.clear()
         }
@@ -65,6 +69,8 @@ class ProductActivity : BackActivity() {
             }
         }
 
+        getFeedback(selectedProduct?._id ?: "", getSharedPreferences("MyAppPrefs", MODE_PRIVATE).getString("currentUserEmail", "") ?: "")
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -74,7 +80,7 @@ class ProductActivity : BackActivity() {
 
     private fun addToCart(product: Product) {
         val email =
-            getSharedPreferences("MyAppPrefs", MODE_PRIVATE).getString("currentUser", "") ?: ""
+            getSharedPreferences("MyAppPrefs", MODE_PRIVATE).getString("currentUserEmail", "") ?: ""
 
         val productRepository = ProductRepository(RetrofitClient.productService)
 
@@ -109,37 +115,59 @@ class ProductActivity : BackActivity() {
         }
     }
 
-    private fun addProductFeedback(comment: String, rating: Int) {
-        val feedbackRequest = FeedbackRequest(
-            getSharedPreferences("MyAppPrefs", MODE_PRIVATE).getString("currentUser", "") ?: "",
-            comment,
-            rating,
-            intent.getSerializableExtra("selectedProduct") as Product
-        )
-
+    private fun addProductFeedback(
+        email: String,
+        productId: String,
+        comment: String,
+        rating: Int
+    ) {
+        val productFeedBack = FeedBack(email, productId, comment, rating)
+        val productRepository = ProductRepository(RetrofitClient.productService)
         lifecycleScope.launch {
             try {
-                val response = RetrofitClient.productService.addProductFeedback(feedbackRequest)
+                val response = productRepository.addProductFeedback(productFeedBack)
                 if (response.isSuccessful) {
                     Toast.makeText(
                         this@ProductActivity,
-                        "Feedback submitted successfully",
+                        "Feedback added successfully",
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
                     Toast.makeText(
                         this@ProductActivity,
-                        "Error submitting feedback: ${response.message()}",
+                        "Error adding feedback: ${response.message()}",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-            } catch (e: Exception) {
+            } catch (
+                e: Exception
+            ) {
                 Toast.makeText(
                     this@ProductActivity,
-                    "Error submitting feedback: ${e.message}",
+                    "Error adding feedback: ${e.message}",
                     Toast.LENGTH_SHORT
-                ).show()
+                ).show(
+                )
+
             }
+
         }
     }
+
+    private fun getFeedback(productId: String, email: String) {
+        val productRepository = ProductRepository(RetrofitClient.productService)
+        lifecycleScope.launch {
+            try {
+                val response = productRepository.getProductFeedback(productId, email)
+                if (response != null) {
+                    findViewById<RatingBar>(R.id.vendor_rating_bar).rating = response.rating.toFloat()
+                    findViewById<EditText>(R.id.vendor_comment_edit_text).setText(response.comment)
+                }
+            } catch (e: Exception) {
+                Toast.makeText(this@ProductActivity, "Error fetching feedback: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    }
+
 }

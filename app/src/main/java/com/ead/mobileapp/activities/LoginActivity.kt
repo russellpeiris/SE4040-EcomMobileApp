@@ -1,4 +1,4 @@
-package com.ead.mobileapp
+package com.ead.mobileapp.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import com.ead.mobileapp.R
 import com.ead.mobileapp.api.RetrofitClient
 import com.ead.mobileapp.dto.auth.LoginRequest
 import com.ead.mobileapp.utils.Utils
@@ -68,13 +69,16 @@ class LoginActivity : AppCompatActivity() {
             try {
                 val loginResponse = authService.login(loginRequest)
                 if(loginResponse.isSuccessful){
+                    println("LOGIN DATA +++++++++ "+loginResponse.body()?.data)
 
                     Toast.makeText(this@LoginActivity, "Login successful", Toast.LENGTH_SHORT).show()
                     val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
                     val editor = sharedPref.edit()
                     editor.putBoolean("isAuthenticated", true)
 //                  editor.putString("token", response.data?.token) // Uncomment if token exists in response
-                    editor.putString("currentUser", email)
+                    editor.putString("currentUserEmail", loginResponse.body()?.data?.email)
+                    editor.putString("currentUserName", loginResponse.body()?.data?.name)
+                    editor.putString("currentUserAddress", loginResponse.body()?.data?.address)
 
                     editor.apply()
                     val intent = Intent(this@LoginActivity, HomeActivity::class.java)

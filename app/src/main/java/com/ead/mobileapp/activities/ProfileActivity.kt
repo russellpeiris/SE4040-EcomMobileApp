@@ -1,4 +1,4 @@
-package com.ead.mobileapp
+package com.ead.mobileapp.activities
 
 import android.content.Context
 import android.content.Intent
@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.ead.mobileapp.R
 
 class ProfileActivity : BackActivity() {
 
@@ -41,11 +41,10 @@ class ProfileActivity : BackActivity() {
 
         // Retrieve saved data from SharedPreferences
         val sharedPref = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
-        val savedUsername = sharedPref.getString("username", "")
-        val savedName = sharedPref.getString("name", "")
-        val savedPhone = sharedPref.getString("phone", "")
-        val savedAddress = sharedPref.getString("address", "")
-        val savedEmail = sharedPref.getString("email", "test@test.com")
+        val savedName = sharedPref.getString("currentUserName", "")
+        val savedPhone = sharedPref.getString("currentUserPhone", "")
+        val savedAddress = sharedPref.getString("currentUserAddress", "")
+        val savedEmail = sharedPref.getString("currentUserEmail", "")
 
         // Set initial values
         nameEditText.setText(savedName)

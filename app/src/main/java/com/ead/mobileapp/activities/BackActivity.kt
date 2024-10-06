@@ -1,4 +1,4 @@
-package com.ead.mobileapp
+package com.ead.mobileapp.activities
 
 import android.os.Bundle
 import android.widget.ImageButton

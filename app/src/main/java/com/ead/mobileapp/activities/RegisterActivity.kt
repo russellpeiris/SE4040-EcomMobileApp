@@ -1,4 +1,4 @@
-package com.ead.mobileapp
+package com.ead.mobileapp.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.ead.mobileapp.R
 import com.ead.mobileapp.api.RetrofitClient
 import com.ead.mobileapp.dto.auth.RegisterRequest
 import kotlinx.coroutines.launch

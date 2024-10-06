@@ -1,4 +1,4 @@
-package com.ead.mobileapp
+package com.ead.mobileapp.activities
 
 import android.os.Bundle
 import android.widget.Button
@@ -6,7 +6,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.ead.mobileapp.R
+import com.ead.mobileapp.api.RetrofitClient
 import com.ead.mobileapp.models.Order
+import com.ead.mobileapp.repositories.ProductRepository
+import kotlinx.coroutines.launch
 
 class OrderDetailsActivity : AppCompatActivity() {
 
@@ -31,16 +36,32 @@ class OrderDetailsActivity : AppCompatActivity() {
 
         // If order exists, populate the fields
         if (order != null) {
-            orderId.text = "Order ID: #${order.orderId}"
-            orderStatus.text = "Status: ${order.orderStatus}"
-            orderTracking.text = "Tracking: ${order.trackingNumber ?: "N/A"}"
-            orderTotal.text = "Total: $${order.total}"
+            orderId.text = "Order ID: #${order._id}"
+            orderStatus.text = "Status: ${order.status}"
+            orderTracking.text = "Tracking: ${"N/A"}"
+            orderTotal.text = "Total: ${order.totalAmount}"
         }
 
         // Handle order cancellation request
         requestCancelButton.setOnClickListener {
-            // Logic to request order cancellation, could be a network call, etc.
-            Toast.makeText(this, "Cancellation request sent for Order #${order?.orderId}", Toast.LENGTH_SHORT).show()
+            if (order != null) {
+                cancelOrder(order._id)
+            }
+        }
+    }
+    private fun cancelOrder(orderId: String) {
+        lifecycleScope.launch {
+            try {
+                val productRepository = ProductRepository(RetrofitClient.productService)
+                val response = productRepository.requestCancelOrder(orderId)
+                if (response.isSuccessful) {
+                    Toast.makeText(this@OrderDetailsActivity, "Order cancellation request sent", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this@OrderDetailsActivity, "Failed to cancel order", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 }

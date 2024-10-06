@@ -1,4 +1,4 @@
-package com.ead.mobileapp
+package com.ead.mobileapp.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,6 +13,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ead.mobileapp.R
 import com.ead.mobileapp.adapters.ProductAdapter
 import com.ead.mobileapp.api.RetrofitClient
 import com.ead.mobileapp.models.Product
