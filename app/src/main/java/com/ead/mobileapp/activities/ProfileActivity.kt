@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
+import com.bumptech.glide.Glide
 import com.ead.mobileapp.R
 
 class ProfileActivity : BackActivity() {
@@ -38,6 +39,9 @@ class ProfileActivity : BackActivity() {
         val updateButton = findViewById<Button>(R.id.updateButton)
         val logoutButton = findViewById<Button>(R.id.logout)
         val deactivateButton = findViewById<Button>(R.id.deactivate)
+        Glide.with(this)
+            .load("https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50")
+            .into(findViewById(R.id.profilePicture))
 
         // Retrieve saved data from SharedPreferences
         val sharedPref = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)

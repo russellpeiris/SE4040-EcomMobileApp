@@ -3,8 +3,10 @@ package com.ead.mobileapp.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.ead.mobileapp.R
 import com.ead.mobileapp.models.Order
 
@@ -35,10 +37,13 @@ class OrderAdapter(
         private val orderStatus: TextView = itemView.findViewById(R.id.orderStatus)
 
         fun bind(order: Order) {
-            orderNumber.text = order._id
+            orderNumber.text = "Order Number: ${order._id.substring(0, 4)}"
             orderDate.text = "Order Date: ${order.orderDate}"
             orderTotal.text = "Total: $${order.totalAmount}"
             orderStatus.text = "Status: ${order.status}"
+            Glide.with(itemView)
+                .load(order.product.imageUrl)
+                .into(itemView.findViewById<ImageView>(R.id.orderImage))
         }
     }
 }

@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import com.ead.mobileapp.R
 import com.ead.mobileapp.api.RetrofitClient
 import com.ead.mobileapp.models.FeedBack
@@ -36,6 +37,9 @@ class ProductActivity : BackActivity() {
             findViewById<TextView>(R.id.product_name).text = selectedProduct.name
             findViewById<TextView>(R.id.product_price).text = selectedProduct.price
             findViewById<TextView>(R.id.product_description).text = selectedProduct.description
+            Glide.with(this)
+                .load(selectedProduct.imageUrl)
+                .into(findViewById(R.id.product_image))
         }
 
         val ratingBar = findViewById<RatingBar>(R.id.vendor_rating_bar)

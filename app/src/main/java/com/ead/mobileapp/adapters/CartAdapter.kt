@@ -7,6 +7,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.ead.mobileapp.R
 import com.ead.mobileapp.models.CartItem
 
@@ -28,16 +29,19 @@ class CartAdapter(private val cartItems: List<CartItem>, private val onRemoveCli
     }
 
     class CartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val productImage: ImageView = itemView.findViewById(R.id.productImage)
         private val productName: TextView = itemView.findViewById(R.id.productName)
         private val productPrice: TextView = itemView.findViewById(R.id.productPrice)
         private val quantity: TextView = itemView.findViewById(R.id.productQuantity)
         private val removeButton: ImageButton = itemView.findViewById(R.id.removeButton)
 
+
         fun bind(cartItem: CartItem, onRemoveClick: (CartItem) -> Unit) {
             productName.text = cartItem.name
             productPrice.text = "$${cartItem.price}"
             quantity.text = "Quantity: ${cartItem.quantity}"
+            Glide.with(itemView)
+                .load(cartItem.imageUrl)
+                .into(itemView.findViewById<ImageView>(R.id.productImage))
 
             // Handle Remove Button click
             removeButton.setOnClickListener {

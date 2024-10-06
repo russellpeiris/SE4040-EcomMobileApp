@@ -93,10 +93,9 @@ class HomeActivity : AppCompatActivity() {
                 filteredList.addAll(productList)
                 adapter.notifyDataSetChanged()
 
-                filterProducts("", selectedCategory = "All") // Display all products
+                filterProducts("", selectedCategory = "All")
 
             } catch (e: Exception) {
-                println( "********************* "+e.message)
                 Toast.makeText(this@HomeActivity, "Error fetching products: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
