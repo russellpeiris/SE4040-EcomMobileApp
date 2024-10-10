@@ -10,10 +10,17 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.ead.mobileapp.R
+import com.ead.mobileapp.api.RetrofitClient
+import com.ead.mobileapp.dto.user.UpdateUserDto
+import com.ead.mobileapp.repositories.UserRepository
+import kotlinx.coroutines.launch
 
 class ProfileActivity : BackActivity() {
+
+    private lateinit var userRepository: UserRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,8 +28,7 @@ class ProfileActivity : BackActivity() {
         setContentView(R.layout.activity_profile)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars =
-                insets.getInsets(androidx.core.view.WindowInsetsCompat.Type.systemBars())
+            val systemBars = insets.getInsets(androidx.core.view.WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
@@ -39,6 +45,7 @@ class ProfileActivity : BackActivity() {
         val updateButton = findViewById<Button>(R.id.updateButton)
         val logoutButton = findViewById<Button>(R.id.logout)
         val deactivateButton = findViewById<Button>(R.id.deactivate)
+
         Glide.with(this)
             .load("https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50")
             .into(findViewById(R.id.profilePicture))
@@ -56,21 +63,39 @@ class ProfileActivity : BackActivity() {
         addressEditText.setText(savedAddress)
         emailTextView.text = savedEmail
 
+        // Initialize UserRepository with AuthService
+        userRepository = UserRepository(RetrofitClient.authService)
+
         // Handle Update Button click
         updateButton.setOnClickListener {
+            val email = emailTextView.text.toString().trim()
             val newName = nameEditText.text.toString().trim()
             val newPhone = phoneEditText.text.toString().trim()
             val newAddress = addressEditText.text.toString().trim()
 
-            // Save updated data to SharedPreferences
-            with(sharedPref.edit()) {
-                putString("name", newName)
-                putString("phone", newPhone)
-                putString("address", newAddress)
-                apply()
-            }
+            // Create UpdateUserDto with updated data
+            val updateUserDto = UpdateUserDto(email, newName, newPhone, newAddress)
 
-            Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show()
+            // Call updateUser in a coroutine
+            lifecycleScope.launch {
+                try {
+                    val updatedUser = userRepository.updateUser(updateUserDto)
+
+                    // Save updated data to SharedPreferences
+                    with(sharedPref.edit()) {
+                        updatedUser?.let {
+                            putString("currentUserName", it.name) // Assuming UpdateUserDto has a name property
+                            putString("currentUserPhone", it.mobileNumber) // Assuming UpdateUserDto has a phone property
+                            putString("currentUserAddress", it.address) // Assuming UpdateUserDto has an address property
+                            apply()
+                        }
+                    }
+
+                    Toast.makeText(this@ProfileActivity, "Profile updated successfully", Toast.LENGTH_SHORT).show()
+                } catch (e: Exception) {
+                    Toast.makeText(this@ProfileActivity, "Failed to update profile: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
 
         // Handle Logout Button click
@@ -86,4 +111,5 @@ class ProfileActivity : BackActivity() {
             finish()
         }
     }
+
 }

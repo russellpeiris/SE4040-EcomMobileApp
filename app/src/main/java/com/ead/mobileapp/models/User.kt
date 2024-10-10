@@ -9,5 +9,6 @@ data class User(
     val password: String,
     val address: String,
     val role: String,
+    val mobileNumber: String,
     val isActivated: Boolean,
 ) : Serializable

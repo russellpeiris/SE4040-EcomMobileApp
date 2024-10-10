@@ -52,6 +52,7 @@ dependencies {
     implementation (libs.kotlinx.coroutines.core)
     implementation (libs.kotlinx.coroutines.android)
     implementation (libs.logging.interceptor)
+    implementation(libs.java.jwt)
     implementation (libs.com.github.bumptech.glide.glide)
     annotationProcessor (libs.compiler)
     testImplementation(libs.junit)
