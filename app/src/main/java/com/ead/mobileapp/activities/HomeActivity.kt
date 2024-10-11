@@ -37,6 +37,7 @@ class HomeActivity : AppCompatActivity() {
         adapter = ProductAdapter(filteredList) { product ->
             val intent = Intent(this, ProductActivity::class.java)
             intent.putExtra("selectedProduct", product)
+            intent.putExtra("vendorId", product.vendorId)
             startActivity(intent)
         }
         recyclerView.adapter = adapter

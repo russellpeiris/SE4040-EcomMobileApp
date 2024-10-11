@@ -74,7 +74,7 @@ class ProfileActivity : BackActivity() {
             val newAddress = addressEditText.text.toString().trim()
 
             // Create UpdateUserDto with updated data
-            val updateUserDto = UpdateUserDto(email, newName, newPhone, newAddress)
+            val updateUserDto = UpdateUserDto(newName, email, newPhone, newAddress)
 
             // Call updateUser in a coroutine
             lifecycleScope.launch {

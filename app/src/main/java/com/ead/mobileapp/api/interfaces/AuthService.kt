@@ -16,7 +16,7 @@ interface AuthService {
     @POST("api/UserProfile/LoginUser")
     suspend fun login(@Body loginRequest: LoginRequest): Response<LoginResponse>
 
-    @POST("api/UserProfile/RegisterUser")
+    @POST("api/UserProfile/CreateUser")
     suspend fun register(@Body registerRequest: RegisterRequest): Response<ApiResponse<RegisterResponse>>
 
     @PUT("api/UserProfile/UpdateUser")

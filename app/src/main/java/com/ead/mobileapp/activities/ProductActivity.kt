@@ -32,6 +32,7 @@ class ProductActivity : BackActivity() {
         enableUpNavigation(toolbar)
 
         val selectedProduct = intent.getSerializableExtra("selectedProduct") as? Product
+        val vendorId = intent.getStringExtra("vendorId")
 
         if (selectedProduct != null) {
             findViewById<TextView>(R.id.product_name).text = selectedProduct.name
@@ -58,7 +59,9 @@ class ProductActivity : BackActivity() {
 
             addProductFeedback(
                 getSharedPreferences("MyAppPrefs", MODE_PRIVATE).getString("currentUserEmail", "") ?: "",
-                selectedProduct?._id ?: "",
+                selectedProduct?.name ?: "",
+                vendorId ?: "",
+                selectedProduct?.id ?: "",
                 comment,
                 rating
             )
@@ -74,7 +77,7 @@ class ProductActivity : BackActivity() {
             }
         }
 
-        getFeedback(selectedProduct?._id ?: "", getSharedPreferences("MyAppPrefs", MODE_PRIVATE).getString("currentUserEmail", "") ?: "")
+        getFeedback(selectedProduct?.id ?: "", getSharedPreferences("MyAppPrefs", MODE_PRIVATE).getString("currentUserEmail", "") ?: "")
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -122,11 +125,13 @@ class ProductActivity : BackActivity() {
 
     private fun addProductFeedback(
         email: String,
+        title: String,
+        vendorId: String,
         productId: String,
         comment: String,
         rating: Int
     ) {
-        val productFeedBack = FeedBack(email, productId, comment, rating)
+        val productFeedBack = FeedBack(email, title, vendorId,  productId, comment, rating)
         val productRepository = ProductRepository(RetrofitClient.productService)
         lifecycleScope.launch {
             try {

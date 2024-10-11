@@ -11,10 +11,10 @@ import retrofit2.http.Query
 
 
 interface ProductService {
-    @GET("/products")
+    @GET("/api/Product/GetAllProducts")
     suspend fun getProducts():Response<ProductResponse>
 
-    @POST("/product-feedback")
+    @POST("api/vendorFeedback/CreateVendorFeedback")
     suspend fun addProductFeedback(@Body body: FeedBack): Response<Void>
 
     @GET("/product-feedback")
