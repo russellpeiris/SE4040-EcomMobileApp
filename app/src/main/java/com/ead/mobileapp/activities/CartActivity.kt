@@ -37,7 +37,6 @@ class CartActivity : BackActivity() {
         checkout.setOnClickListener {
             placeOrder()
         }
-
         fetchCartItems()
     }
 
@@ -60,7 +59,7 @@ class CartActivity : BackActivity() {
                     recyclerView.layoutManager = LinearLayoutManager(this@CartActivity)
 
                     val cartAdapter = CartAdapter(cartItems) { cartItem ->
-                        // Handle remove item logic here
+
                     }
                     recyclerView.adapter = cartAdapter
 
@@ -84,7 +83,7 @@ class CartActivity : BackActivity() {
                 val cartItems = cartRepository.getCartItems(email)?.product
                 val orderRequest = OrderRequest(email, cartItems, 0.toString())
                 val orderRepository = OrderRepository(RetrofitClient.orderService)
-                val response = orderRepository.placeOrder(orderRequest)
+                val response = orderRepository.placeOrder(email)
 
                 if (response.isSuccessful) {
                     Toast.makeText(this@CartActivity, "Order placed successfully", Toast.LENGTH_SHORT)

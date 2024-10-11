@@ -33,11 +33,9 @@ class ProfileActivity : BackActivity() {
             insets
         }
 
-        // Setup Toolbar with back navigation
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         enableUpNavigation(toolbar)
 
-        // Initialize UI Elements
         val emailTextView = findViewById<TextView>(R.id.email)
         val nameEditText = findViewById<EditText>(R.id.name)
         val phoneEditText = findViewById<EditText>(R.id.phone)
@@ -50,43 +48,36 @@ class ProfileActivity : BackActivity() {
             .load("https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50")
             .into(findViewById(R.id.profilePicture))
 
-        // Retrieve saved data from SharedPreferences
         val sharedPref = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
         val savedName = sharedPref.getString("currentUserName", "")
         val savedPhone = sharedPref.getString("currentUserPhone", "")
         val savedAddress = sharedPref.getString("currentUserAddress", "")
         val savedEmail = sharedPref.getString("currentUserEmail", "")
 
-        // Set initial values
         nameEditText.setText(savedName)
         phoneEditText.setText(savedPhone)
         addressEditText.setText(savedAddress)
         emailTextView.text = savedEmail
 
-        // Initialize UserRepository with AuthService
         userRepository = UserRepository(RetrofitClient.authService)
 
-        // Handle Update Button click
         updateButton.setOnClickListener {
             val email = emailTextView.text.toString().trim()
             val newName = nameEditText.text.toString().trim()
             val newPhone = phoneEditText.text.toString().trim()
             val newAddress = addressEditText.text.toString().trim()
 
-            // Create UpdateUserDto with updated data
             val updateUserDto = UpdateUserDto(newName, email, newPhone, newAddress, true)
 
-            // Call updateUser in a coroutine
             lifecycleScope.launch {
                 try {
                     val updatedUser = userRepository.updateUser(updateUserDto)
 
-                    // Save updated data to SharedPreferences
                     with(sharedPref.edit()) {
                         updatedUser?.let {
-                            putString("currentUserName", it.name) // Assuming UpdateUserDto has a name property
-                            putString("currentUserPhone", it.mobileNumber) // Assuming UpdateUserDto has a phone property
-                            putString("currentUserAddress", it.address) // Assuming UpdateUserDto has an address property
+                            putString("currentUserName", it.name)
+                            putString("currentUserPhone", it.mobileNumber)
+                            putString("currentUserAddress", it.address)
                             apply()
                         }
                     }
@@ -98,7 +89,6 @@ class ProfileActivity : BackActivity() {
             }
         }
 
-        // Handle Logout Button click
         logoutButton.setOnClickListener {
             Toast.makeText(this, "Logout successful", Toast.LENGTH_SHORT).show()
             with(sharedPref.edit()) {
@@ -111,7 +101,6 @@ class ProfileActivity : BackActivity() {
             finish()
         }
 
-        // Handle Deactivate Button click
         deactivateButton.setOnClickListener {
             lifecycleScope.launch {
                 try {

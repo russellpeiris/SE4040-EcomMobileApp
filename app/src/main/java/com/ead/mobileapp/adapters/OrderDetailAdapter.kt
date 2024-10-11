@@ -7,7 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ead.mobileapp.R
-import com.ead.mobileapp.models.OrderItem
+import com.ead.mobileapp.dto.order.OrderItem
 
 class OrderDetailAdapter(
     private val orders: List<OrderItem>,

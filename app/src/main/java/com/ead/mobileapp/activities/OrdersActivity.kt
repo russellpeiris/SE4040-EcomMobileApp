@@ -42,7 +42,6 @@ class OrdersActivity : BackActivity() {
             try {
                 val orders = orderRepository.getOrders(email)
                 if (orders != null) {
-                    // adapter view
                     val recyclerView = findViewById<RecyclerView>(R.id.orderRecyclerView)
                     recyclerView.layoutManager = LinearLayoutManager(this@OrdersActivity)
                     val orderAdapter = OrderAdapter(orders) { order ->
@@ -58,6 +57,11 @@ class OrdersActivity : BackActivity() {
             }
         }
 
+    }
+    
+    override fun onResume() {
+        getOrders()
+        super.onResume()
     }
 
 }

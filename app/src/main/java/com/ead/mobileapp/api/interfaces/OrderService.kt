@@ -6,8 +6,8 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface OrderService {
-    @POST("/api/Order/CreateOrder")
-    suspend fun placeOrder(@Body order: OrderRequest): Response<Void>
+    @GET("/api/Order/GenerateOrder")
+    suspend fun placeOrder(@Query("email") email:String): Response<Void>
 
     @GET("/api/Order/GetAllOrders")
     suspend fun getOrders(@Query("email") email: String): Response<ApiResponse<List<Order>>>

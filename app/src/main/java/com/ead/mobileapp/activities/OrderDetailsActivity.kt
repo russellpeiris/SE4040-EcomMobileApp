@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ead.mobileapp.R
 import com.ead.mobileapp.adapters.OrderDetailAdapter
 import com.ead.mobileapp.api.RetrofitClient
-import com.ead.mobileapp.models.OrderItem
+import com.ead.mobileapp.dto.order.OrderItem
 import com.ead.mobileapp.repositories.OrderRepository
 import kotlinx.coroutines.launch
 
@@ -33,20 +33,20 @@ class OrderDetailsActivity : BackActivity() {
         }
     }
     private fun cancelOrder(orderId: String) {
-    lifecycleScope.launch {
-        try {
-            val orderRepository = OrderRepository(RetrofitClient.orderService)
-            val response = orderRepository.requestCancelOrder(orderId)
-            if (response.isSuccessful) {
-                Toast.makeText(this@OrderDetailsActivity, "Order cancellation request sent", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this@OrderDetailsActivity, "Failed to cancel order", Toast.LENGTH_SHORT).show()
+        lifecycleScope.launch {
+            try {
+                val orderRepository = OrderRepository(RetrofitClient.orderService)
+                val response = orderRepository.requestCancelOrder(orderId)
+                if (response.isSuccessful) {
+                    Toast.makeText(this@OrderDetailsActivity, "Order cancellation request sent", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this@OrderDetailsActivity, "Failed to cancel order", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
         }
     }
-}
 
 }
 
