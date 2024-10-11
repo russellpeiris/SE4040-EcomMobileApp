@@ -37,7 +37,7 @@ class OrderAdapter(
         private val orderStatus: TextView = itemView.findViewById(R.id.orderStatus)
 
         fun bind(order: Order) {
-            orderNumber.text = "Order Number: ${order._id.substring(0, 4)}"
+//            orderNumber.text = "Order Number: ${order.id.substring(0, 4)}"
             orderDate.text = "Order Date: ${order.orderDate}"
             orderTotal.text = "Total: $${order.totalAmount}"
             orderStatus.text = "Status: ${order.status}"

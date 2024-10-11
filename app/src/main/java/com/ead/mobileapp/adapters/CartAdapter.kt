@@ -31,14 +31,14 @@ class CartAdapter(private val cartItems: List<CartItem>, private val onRemoveCli
     class CartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val productName: TextView = itemView.findViewById(R.id.productName)
         private val productPrice: TextView = itemView.findViewById(R.id.productPrice)
-        private val quantity: TextView = itemView.findViewById(R.id.productQuantity)
+        private val category: TextView = itemView.findViewById(R.id.productCategory)
         private val removeButton: ImageButton = itemView.findViewById(R.id.removeButton)
 
 
         fun bind(cartItem: CartItem, onRemoveClick: (CartItem) -> Unit) {
             productName.text = cartItem.name
             productPrice.text = "$${cartItem.price}"
-            quantity.text = "Quantity: ${cartItem.quantity}"
+            category.text = "Quantity: ${cartItem.category}"
             Glide.with(itemView)
                 .load(cartItem.imageUrl)
                 .into(itemView.findViewById<ImageView>(R.id.productImage))

@@ -11,4 +11,5 @@ data class Product(
     val description: String,
     val category: String,
     val vendorId: String,
+    val isActivated: Boolean,
 ) : Serializable

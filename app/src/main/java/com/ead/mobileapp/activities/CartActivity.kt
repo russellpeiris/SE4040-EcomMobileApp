@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ead.mobileapp.R
 import com.ead.mobileapp.adapters.CartAdapter
 import com.ead.mobileapp.api.RetrofitClient
+import com.ead.mobileapp.dto.order.OrderRequest
 import com.ead.mobileapp.repositories.CartRepository
 import com.ead.mobileapp.repositories.OrderRepository
-import com.ead.mobileapp.repositories.ProductRepository
 import kotlinx.coroutines.launch
 
 class CartActivity : BackActivity() {
@@ -47,17 +47,19 @@ class CartActivity : BackActivity() {
         lifecycleScope.launch {
             try {
                 val cartRepository = CartRepository(RetrofitClient.cartService)
-                val cartItems = cartRepository.getCartItems(email)
+                val response = cartRepository.getCartItems(email)
+                val cartItems = response?.product
+                val totalPrice = response?.totalPrice
 
-                if (cartItems != null && cartItems.products.isNotEmpty()) {
+                if (cartItems != null && cartItems.isNotEmpty()) {
 
                     val totalPriceTextView = findViewById<TextView>(R.id.totalPrice)
-                    totalPriceTextView.text = "Total: $${cartItems.totalAmount}"
+                    totalPriceTextView.text = "Total: $${totalPrice}"
 
                     val recyclerView = findViewById<RecyclerView>(R.id.cartRecyclerView)
                     recyclerView.layoutManager = LinearLayoutManager(this@CartActivity)
 
-                    val cartAdapter = CartAdapter(cartItems.products) { cartItem ->
+                    val cartAdapter = CartAdapter(cartItems) { cartItem ->
                         // Handle remove item logic here
                     }
                     recyclerView.adapter = cartAdapter
@@ -78,8 +80,11 @@ class CartActivity : BackActivity() {
 
         lifecycleScope.launch {
             try {
+                val cartRepository = CartRepository(RetrofitClient.cartService)
+                val cartItems = cartRepository.getCartItems(email)?.product
+                val orderRequest = OrderRequest(email, cartItems, 0.toString())
                 val orderRepository = OrderRepository(RetrofitClient.orderService)
-                val response = orderRepository.placeOrder(email)
+                val response = orderRepository.placeOrder(orderRequest)
 
                 if (response.isSuccessful) {
                     Toast.makeText(this@CartActivity, "Order placed successfully", Toast.LENGTH_SHORT)

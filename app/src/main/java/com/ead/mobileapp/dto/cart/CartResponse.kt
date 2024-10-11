@@ -4,6 +4,6 @@ import com.ead.mobileapp.models.CartItem
 import java.io.Serializable
 
 data class CartResponse(
-    val products: List<CartItem>,
-    val totalAmount: Float
+    val product: List<CartItem>,
+    val totalPrice: Float
 ) : Serializable

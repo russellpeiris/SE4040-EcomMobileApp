@@ -8,13 +8,14 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Query
 
 interface CartService {
 
-    @POST("/cart")
-    suspend fun addToCart(@Body body: AddToCartRequest): Response<AddToCartResponse>
+    @PUT("api/Cart/UpdateCart")
+    suspend fun addToCart(@Query("email") email: String, @Body body: AddToCartRequest): Response<AddToCartResponse>
 
-    @GET("/cart")
+    @GET("/api/Cart/GetByCartEmail")
     suspend fun getCartItems(@Query("email") email: String): Response<ApiResponse<CartResponse>>
 }

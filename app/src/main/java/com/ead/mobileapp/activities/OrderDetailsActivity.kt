@@ -37,7 +37,7 @@ class OrderDetailsActivity : AppCompatActivity() {
 
         // If order exists, populate the fields
         if (order != null) {
-            orderId.text = "Order ID: #${order._id}"
+            orderId.text = "Order ID: #${order.id}"
             orderStatus.text = "Status: ${order.status}"
             orderTracking.text = "Tracking: ${"N/A"}"
             orderTotal.text = "Total: ${order.totalAmount}"
@@ -46,7 +46,7 @@ class OrderDetailsActivity : AppCompatActivity() {
         // Handle order cancellation request
         requestCancelButton.setOnClickListener {
             if (order != null) {
-                cancelOrder(order._id)
+                cancelOrder(order.id)
             }
         }
     }
