@@ -48,7 +48,7 @@ class OrdersActivity : BackActivity() {
                     val orderAdapter = OrderAdapter(orders) { order ->
                         // Handle order item click
                         val intent = Intent(this@OrdersActivity, OrderDetailsActivity::class.java)
-                        intent.putExtra("order", order)
+                        intent.putExtra("orderItems", ArrayList(order.items))
                         startActivity(intent)
                     }
                     recyclerView.adapter = orderAdapter

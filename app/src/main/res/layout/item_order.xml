@@ -73,16 +73,6 @@
             app:layout_constraintTop_toBottomOf="@id/orderTotal" />
 
         <!-- Remove Button (Optional) -->
-        <ImageButton
-            android:id="@+id/removeButton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Remove Order"
-            android:src="@drawable/ic_delete"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

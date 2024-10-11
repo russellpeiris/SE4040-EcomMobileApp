@@ -8,6 +8,7 @@
     tools:context=".activities.OrderDetailsActivity">
 
     <!-- Toolbar with back button -->
+    <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
@@ -18,73 +19,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_arrow_back"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:title="Order Details" />
+        android:title="@string/cart" />
 
-    <!-- Order ID -->
-    <TextView
-        android:id="@+id/order_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Order ID: #123456"
-        android:textSize="18sp"
-        android:textStyle="bold"
+    <!-- RecyclerView for Cart Items -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/orderDetailsRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        android:layout_marginStart="16dp" />
+        tools:listitem="@layout/item_order_item" />
 
-    <!-- Order Status -->
-    <TextView
-        android:id="@+id/order_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Status: In Progress"
-        android:textSize="16sp"
-        android:textColor="@android:color/holo_green_dark"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/order_id"
-        android:layout_marginStart="16dp" />
 
-    <!-- Tracking Information -->
-    <TextView
-        android:id="@+id/order_tracking"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Tracking: TRK123456789"
-        android:textSize="16sp"
-        android:textColor="@android:color/darker_gray"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/order_status"
-        android:layout_marginStart="16dp" />
-
-    <!-- Order Total -->
-    <TextView
-        android:id="@+id/order_total"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Total: $150.00"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/order_tracking"
-        android:layout_marginStart="16dp" />
-
-    <!-- Button to Request Order Cancellation -->
-    <Button
-        android:id="@+id/request_cancel_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/rounded_button"
-        android:text="Request Order Cancellation"
-        android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/order_total"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -41,9 +41,6 @@ class OrderAdapter(
             orderDate.text = "Order Date: ${order.createdOn}"
             orderTotal.text = "Total: $${order.amount}"
             orderStatus.text = "Status: ${order.status}"
-//            Glide.with(itemView)
-//                .load(order.product.imageUrl)
-//                .into(itemView.findViewById<ImageView>(R.id.orderImage))
         }
     }
 }

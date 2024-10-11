@@ -74,7 +74,7 @@ class ProfileActivity : BackActivity() {
             val newAddress = addressEditText.text.toString().trim()
 
             // Create UpdateUserDto with updated data
-            val updateUserDto = UpdateUserDto(newName, email, newPhone, newAddress)
+            val updateUserDto = UpdateUserDto(newName, email, newPhone, newAddress, true)
 
             // Call updateUser in a coroutine
             lifecycleScope.launch {
@@ -109,6 +109,33 @@ class ProfileActivity : BackActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
+        }
+
+        // Handle Deactivate Button click
+        deactivateButton.setOnClickListener {
+            lifecycleScope.launch {
+                try {
+                    val userDto = UpdateUserDto(savedName, savedEmail, savedPhone, savedAddress, false)
+                    val updatedUser = userRepository.updateUser(userDto)
+
+                    with(sharedPref.edit()) {
+                        updatedUser?.let {
+                            putBoolean("isAuthenticated", false)
+                            apply()
+                        }
+                    }
+
+                    Toast.makeText(this@ProfileActivity, "Account deactivated successfully", Toast.LENGTH_SHORT).show()
+
+                    val intent = Intent(this@ProfileActivity, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+
+
+                } catch (e: Exception) {
+                    Toast.makeText(this@ProfileActivity, "An error occurred: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 

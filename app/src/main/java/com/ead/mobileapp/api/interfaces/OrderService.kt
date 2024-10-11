@@ -12,6 +12,7 @@ interface OrderService {
     @GET("/api/Order/GetAllOrders")
     suspend fun getOrders(@Query("email") email: String): Response<ApiResponse<List<Order>>>
 
-    @POST("request-cancel-order")
-    suspend fun requestCancelOrder(@Query("orderId") orderId: String): Response<Void>
+    @PUT("/api/Order/CancelItem/{itemId}")
+    suspend fun requestCancelOrder(@Path("itemId") itemId: String): Response<Void>
+
 }
