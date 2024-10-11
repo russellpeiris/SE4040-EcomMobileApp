@@ -37,13 +37,13 @@ class OrderAdapter(
         private val orderStatus: TextView = itemView.findViewById(R.id.orderStatus)
 
         fun bind(order: Order) {
-//            orderNumber.text = "Order Number: ${order.id.substring(0, 4)}"
-            orderDate.text = "Order Date: ${order.orderDate}"
-            orderTotal.text = "Total: $${order.totalAmount}"
+            orderNumber.text = "Order Number: ${order.id.substring(0, 4)}"
+            orderDate.text = "Order Date: ${order.createdOn}"
+            orderTotal.text = "Total: $${order.amount}"
             orderStatus.text = "Status: ${order.status}"
-            Glide.with(itemView)
-                .load(order.product.imageUrl)
-                .into(itemView.findViewById<ImageView>(R.id.orderImage))
+//            Glide.with(itemView)
+//                .load(order.product.imageUrl)
+//                .into(itemView.findViewById<ImageView>(R.id.orderImage))
         }
     }
 }

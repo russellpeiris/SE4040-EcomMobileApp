@@ -16,30 +16,18 @@
         android:padding="16dp">
 
         <!-- Order Image -->
-        <ImageView
-            android:id="@+id/orderImage"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
-            android:contentDescription="Order Image"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_image_placeholder"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Order Number -->
         <TextView
             android:id="@+id/orderNumber"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:fontFamily="@font/noto_sans"
             android:text="Order #123456"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@id/orderImage"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Order Date -->
@@ -47,14 +35,13 @@
             android:id="@+id/orderDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/noto_sans"
             android:text="Order Date: 01 Jan 2024"
-            android:textSize="14sp"
             android:textColor="@android:color/darker_gray"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/orderImage"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/orderNumber" />
 
         <!-- Order Total -->
@@ -62,14 +49,13 @@
             android:id="@+id/orderTotal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/noto_sans"
             android:text="Total: $100.00"
-            android:textSize="16sp"
             android:textColor="@android:color/holo_green_dark"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/orderImage"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/orderDate" />
 
         <!-- Product Quantity or Summary (Optional) -->
@@ -77,14 +63,13 @@
             android:id="@+id/orderStatus"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/noto_sans"
             android:text="Status: In Progress"
             android:textColor="@android:color/darker_gray"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/orderImage"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/orderTotal" />
 
         <!-- Remove Button (Optional) -->

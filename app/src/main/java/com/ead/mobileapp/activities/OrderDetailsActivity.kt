@@ -40,7 +40,7 @@ class OrderDetailsActivity : AppCompatActivity() {
             orderId.text = "Order ID: #${order.id}"
             orderStatus.text = "Status: ${order.status}"
             orderTracking.text = "Tracking: ${"N/A"}"
-            orderTotal.text = "Total: ${order.totalAmount}"
+            orderTotal.text = "Total: ${order.amount}"
         }
 
         // Handle order cancellation request

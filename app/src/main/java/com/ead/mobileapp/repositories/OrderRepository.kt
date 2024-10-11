@@ -15,7 +15,7 @@ class OrderRepository(private val orderService: OrderService) {
         return if (response.isSuccessful) {
             response.body()?.data
         } else {
-            emptyList()
+            null
         }
     }
 

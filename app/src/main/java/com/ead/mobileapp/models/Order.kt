@@ -4,9 +4,11 @@ import java.io.Serializable
 
 data class Order(
     val id: String,
-    val product: Product,
-    val totalAmount: String,
+    val items: List<CartItem>,
+    val amount: String,
     val status: String,
-    val orderDate: String,
+    val createdOn: String,
+    val cancellationNotice: String,
+    val customerEmail: String,
 
 ) : Serializable
