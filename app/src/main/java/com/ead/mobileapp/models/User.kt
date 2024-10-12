@@ -8,7 +8,7 @@ data class User(
     val email: String,
     val password: String,
     val address: String,
-    val role: String,
+    val userRole: String,
     val mobileNumber: String,
     val isActivated: Boolean,
 ) : Serializable

@@ -4,5 +4,5 @@ class RegisterRequest(
     private val name: String,
     private val email: String,
     private val password: String,
-    private val role: String = "Customer"
+    private val userRole: String = "Customer"
 )

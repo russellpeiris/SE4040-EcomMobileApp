@@ -9,7 +9,7 @@ interface OrderService {
     @GET("/api/Order/GenerateOrder")
     suspend fun placeOrder(@Query("email") email:String): Response<Void>
 
-    @GET("/api/Order/GetAllOrders")
+ abstract    @GET("/api/Order/GetAllOrders")
     suspend fun getOrders(@Query("email") email: String): Response<ApiResponse<List<Order>>>
 
     @PUT("/api/Order/CancelItem/{itemId}")
